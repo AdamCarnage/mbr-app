@@ -1,5 +1,8 @@
+import 'package:apps/pages/deposit.dart';
 import 'package:apps/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
@@ -10,6 +13,8 @@ class Wallet extends StatefulWidget {
 
 class _WalletState extends State<Wallet> {
   bool _isBalanceVisible = true;
+  final List<String> _categories = ['All', 'Deposits', 'Withdrawals', 'Loans'];
+  int _selectedCategoryIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -119,25 +124,31 @@ class _WalletState extends State<Wallet> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Deposit Container
-                  Container(
-                    width: 115,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: CustomColor.trustColor,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: CustomColor.trustColor),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Deposit',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(_createRoute());
+                    },
+                    child: Container(
+                      width: 115,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: CustomColor.trustColor,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: CustomColor.trustColor),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Deposit',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
+
                   const SizedBox(width: 10),
                   Container(
                     width: 115,
@@ -196,344 +207,413 @@ class _WalletState extends State<Wallet> {
                   ],
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: CustomColor.trustColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.trending_up_outlined,
-                                  color: Colors.white,
-                                  size: 28,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'TZS 50,000',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                    color: CustomColor.trustColor,
-                                  ),
-                                ),
-                                Text(
-                                  'Deposit',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Poppins',
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+              const SizedBox(height: 2),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(_categories.length, (index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedCategoryIndex = index;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 12),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        decoration: BoxDecoration(
+                          color: _selectedCategoryIndex == index
+                              ? CustomColor.trustColor
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: _selectedCategoryIndex == index
+                                ? CustomColor.trustColor
+                                : Colors.grey.withOpacity(0.5),
+                            width: 2,
+                          ),
                         ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '10:45 am',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.grey,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              '09 Sept 2024',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.green,
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          _categories[index],
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: _selectedCategoryIndex == index
+                                ? Colors.white
+                                : Colors.grey,
+                            fontWeight: _selectedCategoryIndex == index
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    );
+                  }),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: CustomColor.trustColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.trending_down_outlined,
-                                  color: Colors.white,
-                                  size: 28,
+              const SizedBox(height: 2),
+              Expanded(
+                  child: SingleChildScrollView(
+                      child: Column(children: [
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: CustomColor.trustColor,
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'TZS 100,000',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                    color: CustomColor.trustColor,
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.trending_up_outlined,
+                                    color: Colors.white,
+                                    size: 28,
                                   ),
                                 ),
-                                Text(
-                                  'Withdrawal',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Poppins',
-                                    color: Colors.grey,
+                              ),
+                              const SizedBox(width: 12),
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '+TZS 50,000',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color: CustomColor.trustColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Deposit',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Poppins',
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '10:45 am',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                '09 Sept 2024',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: CustomColor.trustColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.trending_down_outlined,
+                                    color: Colors.white,
+                                    size: 28,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '11:45 pm',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.grey,
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              '01 July 2024',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.green,
+                              const SizedBox(width: 12),
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '-TZS 100,000',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color: CustomColor.trustColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Withdrawal',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Poppins',
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: CustomColor.trustColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.trending_up_outlined,
-                                  color: Colors.white,
-                                  size: 28,
+                            ],
+                          ),
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '11:45 pm',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.grey,
                                 ),
                               ),
-                            ),
-                            const SizedBox(width: 12),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'TZS 420,000',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                    color: CustomColor.trustColor,
+                              SizedBox(height: 4),
+                              Text(
+                                '01 July 2024',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: CustomColor.trustColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.trending_up_outlined,
+                                    color: Colors.white,
+                                    size: 28,
                                   ),
                                 ),
-                                Text(
-                                  'Deposit',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Poppins',
-                                    color: Colors.grey,
+                              ),
+                              const SizedBox(width: 12),
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '+TZS 420,000',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color: CustomColor.trustColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Deposit',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Poppins',
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          // Moved time and date to the right end
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '12:02 am',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                '14 June 2024',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: CustomColor.trustColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.trending_up_outlined,
+                                    color: Colors.white,
+                                    size: 28,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        // Moved time and date to the right end
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '12:02 am',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.grey,
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              '14 June 2024',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.green,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8.0),
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade200),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: CustomColor.trustColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.trending_up_outlined,
-                                  color: Colors.white,
-                                  size: 28,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'TZS 50,000',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                    color: CustomColor.trustColor,
+                              const SizedBox(width: 12),
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '+TZS 50,000',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.bold,
+                                      color: CustomColor.trustColor,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'Deposit',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Poppins',
-                                    color: Colors.grey,
+                                  Text(
+                                    'Deposit',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'Poppins',
+                                      color: Colors.grey,
+                                    ),
                                   ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          // Moved time and date to the right end
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '10:45 am',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.grey,
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        // Moved time and date to the right end
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '10:45 am',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.grey,
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              '09 Sept 2024',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Poppins',
-                                color: Colors.green,
+                              SizedBox(height: 4),
+                              Text(
+                                '09 Sept 2024',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.green,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ]))),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const Deposit(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // Slide from the right
+        const end = Offset.zero; // To the center
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

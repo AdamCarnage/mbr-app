@@ -1,5 +1,5 @@
 import 'package:apps/pages/bottom_nav.dart';
-import 'package:apps/pages/dashboard.dart';
+import 'package:apps/pages/loading_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,9 +13,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MyDashboard(),
+      home: const LoadingPage(),
+      // home: const LoginPage(),
       routes: {
-        '/Home': (context) => const Dashboard(),
+        '/Home': (context) => const MyDashboard(),
       },
     );
   }

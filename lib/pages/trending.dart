@@ -60,8 +60,12 @@ class _TrendsState extends State<Trends> {
                 decoration: InputDecoration(
                   hintText: 'Search...',
                   prefixIcon: const Icon(Icons.search),
+                  fillColor: Colors.grey[300],
+                  filled: true,
+                  contentPadding: const EdgeInsets.all(16.0),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(50.0),
+                    borderSide: BorderSide.none,
                   ),
                 ),
                 onChanged: (value) {
