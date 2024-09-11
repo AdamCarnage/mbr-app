@@ -23,12 +23,19 @@ class _TrendsState extends State<Trends> {
   ];
   int _selectedCategoryIndex = 0;
 
+  // List of image paths
+  final List<String> _imagePaths = [
+    'assets/images/stock.jpg',
+    'assets/images/savings.jpg',
+    'assets/images/stock.jpg',
+  ];
+
   @override
   void initState() {
     super.initState();
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       if (_pageController.hasClients) {
-        int nextPage = (_activeIndex + 1) % 3;
+        int nextPage = (_activeIndex + 1) % _imagePaths.length;
         _pageController.animateToPage(
           nextPage,
           duration: const Duration(milliseconds: 500),
@@ -75,6 +82,7 @@ class _TrendsState extends State<Trends> {
                 },
               ),
               const SizedBox(height: 16),
+
               SizedBox(
                 height: 180,
                 width: double.infinity,
@@ -85,14 +93,14 @@ class _TrendsState extends State<Trends> {
                       _activeIndex = index;
                     });
                   },
-                  itemCount: 3,
+                  itemCount: _imagePaths
+                      .length, // Update to use the length of the image paths list
                   itemBuilder: (context, index) {
                     return _buildCard(
                       index: index,
                       width: 350,
-                      title: 'My Investments',
-                      amount: 'TZS 1,000,000',
-                      balance: 'Available balance TZS 50,000',
+                      imagePath:
+                          _imagePaths[index], // Pass the appropriate image path
                     );
                   },
                 ),
@@ -102,7 +110,8 @@ class _TrendsState extends State<Trends> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
-                  3,
+                  _imagePaths
+                      .length, // Update to use the length of the image paths list
                   (index) => Container(
                     margin: const EdgeInsets.symmetric(horizontal: 4),
                     width: _activeIndex == index ? 12 : 8,
@@ -160,7 +169,7 @@ class _TrendsState extends State<Trends> {
                   }),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
               Expanded(
                   child: SingleChildScrollView(
                       child: Column(children: [
@@ -207,7 +216,7 @@ class _TrendsState extends State<Trends> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -340,109 +349,7 @@ class _TrendsState extends State<Trends> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'Interest 3%',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Poppins',
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Per Loan',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: Colors.grey.shade200),
-                  ),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundImage:
-                                    AssetImage('assets/images/victor.png'),
-                              ),
-                              SizedBox(width: 12),
-                              Text(
-                                'Jessica Bernad',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  color: CustomColor.trustColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Active',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: 'Poppins',
-                              color: Colors.green,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Current Balance',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Poppins',
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'TZS 1,200,000',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  color: CustomColor.trustColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                'Interest 7%',
+                                'Interest 8%',
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: 'Poppins',
@@ -480,56 +387,27 @@ class _TrendsState extends State<Trends> {
 
   Widget _buildCard({
     required int index,
-    required String title,
-    required String amount,
-    required String balance,
     required double width,
+    required String imagePath,
   }) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+    return Container(
+      margin: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
       width: width,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0), // Apply border radius here
+        image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
         ),
-        color: CustomColor.trustColor,
-        elevation: 2,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'My Investments',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white70,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                'TZS 1,000,000',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                'Available balance TZS 50,000',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Poppins',
-                  color: Colors.white70,
-                ),
-              ),
-            ],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 2), // changes position of shadow
           ),
-        ),
+        ],
       ),
     );
   }

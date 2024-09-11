@@ -9,234 +9,419 @@ class Deposit extends StatefulWidget {
 }
 
 class _DepositState extends State<Deposit> {
-  final TextEditingController _cardNumberController = TextEditingController();
-  final TextEditingController _cardHolderNameController =
-      TextEditingController();
-  final TextEditingController _expController = TextEditingController();
-  final TextEditingController _cvvController = TextEditingController();
-  List<String> banks = [
-    'CRDB Bank',
-    'NMB Bank',
-    'Standard Chartered',
-    'Exim Bank'
-  ];
-  // Variable to hold the selected bank
-  String selectedBank = 'CRDB Bank'; // Default selected value
+  String selectedBank = 'CRDB Bank';
+  String selectedMethod = 'Credit Card'; // Default method
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Deposit',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.bold)),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Scrollbar(
-            thumbVisibility: false,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+      appBar: AppBar(
+        title: const Text('Deposit',
+            style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Scrollbar(
+          thumbVisibility: false,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Row for "Deposit Methods" text
+                const Row(
+                  children: [
+                    Text(
+                      'Deposit Methods',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ],
+                ),
+
+                // Row for "Card Details" text
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Payment Details',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Horizontal options for payment methods
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ChoiceChip(
+                        label: Text(
+                          'Credit Card',
+                          style: TextStyle(
+                            color: selectedMethod == 'Credit Card'
+                                ? CustomColor.trustColor
+                                : Colors.black,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        selectedColor: Colors.blue.withOpacity(0.2),
+                        selected: selectedMethod == 'Credit Card',
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedMethod = 'Credit Card';
+                          });
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      ChoiceChip(
+                        label: Text(
+                          'Paypal',
+                          style: TextStyle(
+                            color: selectedMethod == 'Paypal'
+                                ? CustomColor.trustColor
+                                : Colors.black,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        selected: selectedMethod == 'Paypal',
+                        selectedColor: Colors.blue.withOpacity(0.2),
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedMethod = 'Paypal';
+                          });
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      ChoiceChip(
+                        label: Text(
+                          'Cash',
+                          style: TextStyle(
+                            color: selectedMethod == 'Cash'
+                                ? CustomColor.trustColor
+                                : Colors.black,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        selectedColor: Colors.blue.withOpacity(0.2),
+                        selected: selectedMethod == 'Cash',
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedMethod = 'Cash';
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Card display as shown in the provided image
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      // color: CustomColor.trustColor,
+                      gradient: LinearGradient(
+                        colors: [
+                          CustomColor.trustColor
+                              .withOpacity(0.8), // Adjust the colors as needed
+                          CustomColor.nominationColor.withOpacity(0.8),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('From',
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Poppins')),
+                        // New row with chip image and "Bank card" text
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.asset(
+                              'assets/images/chip.png', // Ensure this path is correct or adjust it as needed
+                              height: 34,
+                              width: 34,
+                            ),
+                            const Text(
+                              'Bank card',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 60),
+                        // Existing rows for cardholder name and expiration date
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'CRDB Bank',
+                              'Victor Jackson',
                               style: TextStyle(
-                                  fontSize: 16, fontFamily: 'Poppins'),
-                            ),
-                            CircleAvatar(
-                                radius: 20, // Adjust the radius as needed
-                                backgroundImage:
-                                    AssetImage('assets/images/tz.png')),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        const Text('To',
-                            style: TextStyle(
+                                color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'Poppins')),
-                        DropdownButtonFormField<String>(
-                          value: selectedBank,
-                          decoration: InputDecoration(
-                            hintText: 'Select Bank',
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                  color: CustomColor.trustColor),
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                            Text(
+                              '12/14',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        // Card number
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            '3417  ****  ****  2115',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              letterSpacing: 7,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins',
                             ),
                           ),
-                          items: banks.map((String bank) {
-                            return DropdownMenuItem<String>(
-                              value: bank,
-                              child: Text(bank),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedBank = newValue!;
-                            });
-                          },
                         )
                       ],
                     ),
                   ),
+                ),
 
-                  // Card details
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Card Details',
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(12.0),
+                    height: 70, // Added height
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(15), // Added border radius
+                    ),
+                    child: CustomPaint(
+                      painter: DashedBorderPainter(),
+                      child: const Center(
+                        child: Text(
+                          '+ Add Another Method',
                           style: TextStyle(
-                            fontSize: 16,
+                            color: Colors.grey,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Poppins',
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: _cardNumberController,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: 'Card Number eg: 1234 5678 9101 1213',
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                  color: CustomColor.trustColor),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: _cardHolderNameController,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: 'Holder Name eg: John Doe',
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                  color: CustomColor.trustColor),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: _expController,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'Exp eg: 01/25',
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                        color: CustomColor.trustColor),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: TextField(
-                                controller: _cvvController,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(),
-                                  hintText: 'CVV eg: 678',
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                        color: CustomColor.trustColor),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
                   ),
+                ),
 
-                  // Submit button in its own row
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: CustomColor.trustColor,
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 12.0,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: const Text('Submit',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Poppins')),
-                          ),
-                        ),
-                      ],
+                // Set Amount section
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    'Set Amount',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
                     ),
                   ),
+                ),
+                const Text(
+                  'How much would you like to deposit?',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.attach_money,
+                            color: CustomColor.trustColor,
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            'Total assets',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        '\$200',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
-                  // Cancel button in its own row with blue border
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {},
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 12.0,
-                              ),
+                // Submit button in its own row
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: CustomColor.trustColor,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text('Send',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Cancel button in its own row
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                               side: const BorderSide(
-                                  color: CustomColor.trustColor),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
+                                  color: CustomColor.trustColor, width: 1),
                             ),
-                            child: const Text(
-                              'Cancel',
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          child: const Text('Cancel',
                               style: TextStyle(
                                   color: CustomColor.trustColor,
-                                  fontFamily: 'Poppins'),
-                            ),
-                          ),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.bold)),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
+}
+
+class DashedBorderPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = Colors.grey
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0;
+
+    const double dashWidth = 8.0;
+    const double dashSpace = 4.0;
+    double startX = 0;
+
+    while (startX < size.width) {
+      canvas.drawLine(
+        Offset(startX, 0),
+        Offset(startX + dashWidth, 0),
+        paint,
+      );
+      startX += dashWidth + dashSpace;
+    }
+
+    startX = 0;
+    while (startX < size.height) {
+      canvas.drawLine(
+        Offset(0, startX),
+        Offset(0, startX + dashWidth),
+        paint,
+      );
+      startX += dashWidth + dashSpace;
+    }
+
+    startX = 0;
+    while (startX < size.width) {
+      canvas.drawLine(
+        Offset(startX, size.height),
+        Offset(startX + dashWidth, size.height),
+        paint,
+      );
+      startX += dashWidth + dashSpace;
+    }
+
+    startX = 0;
+    while (startX < size.height) {
+      canvas.drawLine(
+        Offset(size.width, startX),
+        Offset(size.width, startX + dashWidth),
+        paint,
+      );
+      startX += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
