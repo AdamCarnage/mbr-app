@@ -287,7 +287,6 @@ class _DepositState extends State<Deposit> {
                             'Total assets',
                             style: TextStyle(
                               fontSize: 16,
-                              fontWeight: FontWeight.bold,
                               fontFamily: 'Poppins',
                             ),
                           ),
@@ -335,7 +334,7 @@ class _DepositState extends State<Deposit> {
 
                 // Cancel button in its own row
                 Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Row(
                     children: [
                       Expanded(

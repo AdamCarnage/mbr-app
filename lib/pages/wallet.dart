@@ -1,8 +1,8 @@
+// import 'package:apps/pages/deposit.dart';
 import 'package:apps/pages/deposit.dart';
+import 'package:apps/pages/withdrawal.dart';
 import 'package:apps/theme/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
@@ -150,21 +150,27 @@ class _WalletState extends State<Wallet> {
                   ),
 
                   const SizedBox(width: 10),
-                  Container(
-                    width: 115,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white, // Default color
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: CustomColor.trustColor),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Withdrawal',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          color: CustomColor.trustColor,
+                  //withdrawal container
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(_createRoute1());
+                    },
+                    child: Container(
+                      width: 115,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white, // Default color
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: CustomColor.trustColor),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Withdrawal',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            color: CustomColor.trustColor,
+                          ),
                         ),
                       ),
                     ),
@@ -601,8 +607,29 @@ class _WalletState extends State<Wallet> {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => const Deposit(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0); // Slide from the right
-        const end = Offset.zero; // To the center
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _createRoute1() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const Withdrawal(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
         const curve = Curves.easeInOut;
 
         var tween =

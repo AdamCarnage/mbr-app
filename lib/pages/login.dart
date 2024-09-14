@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const SizedBox(
                         height:
-                            40), // Optional padding to create spacing from the top
+                            50), // Optional padding to create spacing from the top
                     // Add CircleAvatar with logo image
                     CircleAvatar(
                       radius: 60,
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 20),
                     if (isSignup)
                       SizedBox(
-                        height: 45,
+                        height: 50,
                         child: TextField(
                           controller: nameController,
                           decoration: InputDecoration(
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     SizedBox(height: isSignup ? 10 : 0),
                     SizedBox(
-                      height: 45,
+                      height: 50,
                       child: TextField(
                         controller: emailController,
                         decoration: InputDecoration(
@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                       valueListenable: _isObscure,
                       builder: (context, value, child) {
                         return SizedBox(
-                          height: 45,
+                          height: 50,
                           child: TextField(
                             controller: passwordController,
                             decoration: InputDecoration(
@@ -196,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 10),
                     if (isSignup)
                       SizedBox(
-                        height: 45,
+                        height: 50,
                         child: TextField(
                           controller: confirmPasswordController,
                           decoration: InputDecoration(
@@ -226,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: isSignup ? 10 : 0),
                     SizedBox(
                       width: double.infinity,
-                      height: 40,
+                      height: 50,
                       child: ElevatedButton(
                         onPressed: () {
                           if (isSignup) {
@@ -277,7 +277,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
-                      height: 40,
+                      height: 50,
                       child: ElevatedButton.icon(
                         onPressed: () {
                           // Handle Google sign-in
@@ -306,7 +306,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
-                      height: 40,
+                      height: 50,
                       child: ElevatedButton.icon(
                         onPressed: () {
                           // Handle Apple sign-in
