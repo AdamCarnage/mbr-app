@@ -12,6 +12,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -19,7 +20,6 @@ class _DashboardState extends State<Dashboard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const CircleAvatar(
                     radius: 20,
@@ -27,12 +27,20 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   const SizedBox(width: 8),
                   const Expanded(
-                    child: Text(
-                      'Welcome Back\nVictor Jackson',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Poppins',
-                      ),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.center, // Centers the text
+                      children: [
+                        Text(
+                          'Welcome Back!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold, // Bold the text
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   IconButton(
@@ -126,6 +134,7 @@ class _DashboardState extends State<Dashboard> {
                       'My Transactions',
                       style: TextStyle(
                         fontSize: 14,
+                        fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins',
                       ),
                     ),

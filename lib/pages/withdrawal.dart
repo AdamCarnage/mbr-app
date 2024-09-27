@@ -15,6 +15,7 @@ class _WithdrawalState extends State<Withdrawal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           'Withdraw',
@@ -25,6 +26,7 @@ class _WithdrawalState extends State<Withdrawal> {
           ),
         ),
         centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -187,7 +189,7 @@ class _WithdrawalState extends State<Withdrawal> {
                         ),
                         SizedBox(width: 8),
                         Text(
-                          'Total assets',
+                          'Total amount',
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'Poppins',

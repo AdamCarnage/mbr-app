@@ -108,7 +108,7 @@ class _LoadingPageState extends State<LoadingPage>
             );
           },
           child: Image.asset(
-            'assets/images/mbrwhitelogo.png', // Path to your logo
+            'assets/images/mbrwhite.png', // Path to your logo
             width: logoSize,
             height: logoSize,
           ),

@@ -1,5 +1,6 @@
 // import 'package:apps/pages/deposit.dart';
 import 'package:apps/pages/deposit.dart';
+import 'package:apps/pages/loan.dart';
 import 'package:apps/pages/withdrawal.dart';
 import 'package:apps/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _WalletState extends State<Wallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -34,12 +36,20 @@ class _WalletState extends State<Wallet> {
                   ),
                   const SizedBox(width: 8),
                   const Expanded(
-                    child: Text(
-                      'Welcome Back\nVictor Jackson',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Poppins',
-                      ),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.center, // Centers the text
+                      children: [
+                        Text(
+                          'Welcome Back Jackson!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold, // Bold the text
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   IconButton(
@@ -176,25 +186,30 @@ class _WalletState extends State<Wallet> {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Container(
-                    width: 115,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: CustomColor.trustColor),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Loan',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          color: CustomColor.trustColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(_createRoute2());
+                    },
+                    child: Container(
+                      width: 115,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: CustomColor.trustColor),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Loan',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Poppins',
+                            color: CustomColor.trustColor,
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(height: 15),
@@ -206,9 +221,9 @@ class _WalletState extends State<Wallet> {
                     Text(
                       'Recent Transactions',
                       style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Poppins',
-                      ),
+                          fontSize: 14,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -627,6 +642,26 @@ class _WalletState extends State<Wallet> {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
           const Withdrawal(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _createRoute2() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const Loans(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;

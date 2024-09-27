@@ -1,5 +1,63 @@
+import 'package:apps/Auth/auth.dart';
 import 'package:apps/theme/colors.dart';
 import 'package:flutter/material.dart';
+
+// class LoginPage extends StatefulWidget {
+//   const LoginPage({Key? key}) : super(key: key);
+
+//   @override
+//   _LoginPageState createState() => _LoginPageState();
+// }
+
+// class _LoginPageState extends State<LoginPage> {
+//   bool isSignup = false;
+
+//   // Controllers for input fields
+//   final TextEditingController nameController = TextEditingController();
+//   final TextEditingController emailController = TextEditingController();
+//   final TextEditingController passwordController = TextEditingController();
+//   final TextEditingController confirmPasswordController =
+//       TextEditingController();
+
+//   // Observable to control password visibility
+//   final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(true);
+
+//   final String hardcodedEmail = 'user@gmail.com';
+//   final String hardcodedPassword = 'password';
+
+//   void toggleSignup() {
+//     setState(() {
+//       isSignup = !isSignup;
+//     });
+//   }
+
+//   void signIn() {
+//     if (emailController.text == hardcodedEmail &&
+//         passwordController.text == hardcodedPassword) {
+//       Navigator.pushReplacementNamed(context, '/Home');
+//     } else {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Container(
+//             padding:
+//                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+//             decoration: BoxDecoration(
+//               color: Colors.grey,
+//               borderRadius: BorderRadius.circular(25),
+//             ),
+//             child: const Text(
+//               'Invalid email or password',
+//               textAlign: TextAlign.center,
+//             ),
+//           ),
+//           backgroundColor: Colors.transparent,
+//           behavior: SnackBarBehavior.floating,
+//           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+//           elevation: 0,
+//         ),
+//       );
+//     }
+//   }
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,8 +79,12 @@ class _LoginPageState extends State<LoginPage> {
   // Observable to control password visibility
   final ValueNotifier<bool> _isObscure = ValueNotifier<bool>(true);
 
-  final String hardcodedEmail = 'user@gmail.com';
-  final String hardcodedPassword = 'password';
+  // Check for saved credentials on page load
+  @override
+  void initState() {
+    super.initState();
+    _checkLoggedInStatus();
+  }
 
   void toggleSignup() {
     setState(() {
@@ -30,42 +92,45 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void signIn() {
-    if (emailController.text == hardcodedEmail &&
-        passwordController.text == hardcodedPassword) {
+  // Check if user is already logged in
+  void _checkLoggedInStatus() async {
+    bool loggedIn = await Auth.isLoggedIn();
+    if (loggedIn) {
+      Navigator.pushReplacementNamed(context, '/Home');
+    }
+  }
+
+  // Sign-in logic
+  void signIn() async {
+    if (emailController.text == 'user@gmail.com' &&
+        passwordController.text == 'password') {
+      await Auth.saveCredentials(emailController.text, passwordController.text);
       Navigator.pushReplacementNamed(context, '/Home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: const Text(
-              'Invalid email or password',
-              textAlign: TextAlign.center,
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          elevation: 0,
+          content: const Text('Invalid email or password'),
         ),
       );
     }
   }
 
+  // Sign-out logic
+  void signOut() async {
+    await Auth.logout();
+    Navigator.pushReplacementNamed(context, '/Login');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: 400, // Adjusts the maximum width of the form
+
               minHeight: MediaQuery.of(context)
                   .size
                   .height, // Ensures full screen height
@@ -85,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                       backgroundColor: CustomColor.trustColor,
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
-                        child: Image.asset('assets/images/mbrwhitelogo.png',
+                        child: Image.asset('assets/images/mbrwhite.png',
                             width: 70.0, height: 70.0),
                       ),
                     ),

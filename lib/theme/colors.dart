@@ -6,4 +6,5 @@ class CustomColor {
   static const Color trustColor = Color(0xFF0F57E0);
   static const Color secondaryColor = Color(0xFFFFFFFF);
   static const Color greyColor = Color(0xFF828282);
+  static const Color secondarygreyColor = Color(0xFFC6C6C6);
 }

@@ -15,6 +15,7 @@ class _DepositState extends State<Deposit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Deposit',
             style: TextStyle(
@@ -22,6 +23,7 @@ class _DepositState extends State<Deposit> {
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.bold)),
         centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -284,7 +286,7 @@ class _DepositState extends State<Deposit> {
                           ),
                           SizedBox(width: 8),
                           Text(
-                            'Total assets',
+                            'Total amount',
                             style: TextStyle(
                               fontSize: 16,
                               fontFamily: 'Poppins',

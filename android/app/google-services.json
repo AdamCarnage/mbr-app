@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "152751105151",
+    "project_id": "mbrapp-570a8",
+    "storage_bucket": "mbrapp-570a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152751105151:android:b6afdf373fcb0f2e124b4a",
+        "android_client_info": {
+          "package_name": "com.eafrica.mbrapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-hFyY4btI-t5zfcJIRswPePXpT8OgSgY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
