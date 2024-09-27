@@ -1,4 +1,4 @@
-import 'package:apps/pages/userpage.dart';
+import 'package:apps/pages/userprofile.dart';
 import 'package:apps/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +25,6 @@ class _DashboardState extends State<Dashboard> {
                 children: [
                   Row(
                     children: [
-                      // const CircleAvatar(
-                      //   radius: 20,
-                      //   backgroundImage: AssetImage('assets/images/victor.png'),
-                      // ),
                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(_createRoute());
@@ -39,7 +35,6 @@ class _DashboardState extends State<Dashboard> {
                               AssetImage('assets/images/victor.png'),
                         ),
                       ),
-
                       const SizedBox(width: 8),
                       const Expanded(
                         child: Column(
@@ -134,7 +129,7 @@ class _DashboardState extends State<Dashboard> {
                         'Invest',
                       ),
                       _buildActionButton(
-                        Icons.money_off,
+                        Icons.arrow_upward,
                         'Withdrawal',
                       ),
                     ],
@@ -186,7 +181,7 @@ class _DashboardState extends State<Dashboard> {
                                   CircleAvatar(
                                     radius: 25,
                                     backgroundImage:
-                                        AssetImage('assets/images/victor.png'),
+                                        AssetImage('assets/images/user3.jpg'),
                                   ),
                                   SizedBox(width: 12),
                                   Text(
@@ -294,7 +289,7 @@ class _DashboardState extends State<Dashboard> {
                                   CircleAvatar(
                                     radius: 25,
                                     backgroundImage:
-                                        AssetImage('assets/images/victor.png'),
+                                        AssetImage('assets/images/user2.jpg'),
                                   ),
                                   SizedBox(width: 12),
                                   Text(
@@ -402,7 +397,7 @@ class _DashboardState extends State<Dashboard> {
                                   CircleAvatar(
                                     radius: 25,
                                     backgroundImage:
-                                        AssetImage('assets/images/victor.png'),
+                                        AssetImage('assets/images/user5.jpg'),
                                   ),
                                   SizedBox(width: 12),
                                   Text(
@@ -502,7 +497,7 @@ class _DashboardState extends State<Dashboard> {
   Route _createRoute() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
-          Userdeatailspage(),
+          UserProfilePage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;

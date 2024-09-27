@@ -196,7 +196,7 @@ class _TrendsState extends State<Trends> {
                                   CircleAvatar(
                                     radius: 25,
                                     backgroundImage:
-                                        AssetImage('assets/images/victor.png'),
+                                        AssetImage('assets/images/user3.jpg'),
                                   ),
                                   SizedBox(width: 12),
                                   Text(
@@ -298,11 +298,11 @@ class _TrendsState extends State<Trends> {
                                   CircleAvatar(
                                     radius: 25,
                                     backgroundImage:
-                                        AssetImage('assets/images/victor.png'),
+                                        AssetImage('assets/images/user1.jpg'),
                                   ),
                                   SizedBox(width: 12),
                                   Text(
-                                    'Mosses Jackson',
+                                    'Agness Jackson',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'Poppins',

@@ -9,7 +9,7 @@ class Withdrawal extends StatefulWidget {
 }
 
 class _WithdrawalState extends State<Withdrawal> {
-  String selectedMethod = 'Bank'; // Default selected method
+  String selectedMethod = 'Bank';
   String selectedMobileOption = 'Mobile Money Option 1';
 
   @override
@@ -71,6 +71,7 @@ class _WithdrawalState extends State<Withdrawal> {
                           ),
                         ),
                         selectedColor: Colors.blue.withOpacity(0.2),
+                        backgroundColor: Colors.white,
                         selected: selectedMethod == 'Bank',
                         onSelected: (bool selected) {
                           setState(() {
@@ -91,6 +92,7 @@ class _WithdrawalState extends State<Withdrawal> {
                         ),
                         selected: selectedMethod == 'Mobile Money',
                         selectedColor: Colors.blue.withOpacity(0.2),
+                        backgroundColor: Colors.white,
                         onSelected: (bool selected) {
                           setState(() {
                             selectedMethod = 'Mobile Money';
@@ -109,6 +111,7 @@ class _WithdrawalState extends State<Withdrawal> {
                           ),
                         ),
                         selectedColor: Colors.blue.withOpacity(0.2),
+                        backgroundColor: Colors.white,
                         selected: selectedMethod == 'Azampay',
                         onSelected: (bool selected) {
                           setState(() {
@@ -123,7 +126,6 @@ class _WithdrawalState extends State<Withdrawal> {
                   // Bank card UI
                   Visibility(
                     visible: selectedMethod == 'Bank',
-                    // child: _buildBankCard(),
                     child: Column(
                       children: [
                         _buildBankCard(),
@@ -135,7 +137,6 @@ class _WithdrawalState extends State<Withdrawal> {
                   // Mobile Money UI
                   Visibility(
                     visible: selectedMethod == 'Mobile Money',
-                    // child: _buildMobileMoney(),
                     child: Column(
                       children: [
                         _buildMobileMoney(),
@@ -147,7 +148,6 @@ class _WithdrawalState extends State<Withdrawal> {
                   // Azampay UI
                   Visibility(
                     visible: selectedMethod == 'Azampay',
-                    // child: _buildAzampay(),
                     child: Column(
                       children: [
                         _buildAzampesa(),
@@ -388,7 +388,7 @@ class _WithdrawalState extends State<Withdrawal> {
                   horizontal: 8.0), // Add horizontal margin
               decoration: BoxDecoration(
                 color: Colors.blue.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(10),
                 border: isSelected
                     ? Border.all(color: CustomColor.trustColor, width: 2.0)
                     : null,
@@ -430,7 +430,7 @@ class _WithdrawalState extends State<Withdrawal> {
           const EdgeInsets.symmetric(horizontal: 8.0), // Add horizontal margin
       decoration: BoxDecoration(
         color: Colors.green.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
         // Center the content within the container

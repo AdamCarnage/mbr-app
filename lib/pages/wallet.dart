@@ -1,6 +1,7 @@
 // import 'package:apps/pages/deposit.dart';
 import 'package:apps/pages/deposit.dart';
 import 'package:apps/pages/loan.dart';
+import 'package:apps/pages/userprofile.dart';
 import 'package:apps/pages/withdrawal.dart';
 import 'package:apps/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,15 @@ class _WalletState extends State<Wallet> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CircleAvatar(
-                        radius: 20,
-                        backgroundImage: AssetImage('assets/images/victor.png'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(_createRoute3());
+                        },
+                        child: const CircleAvatar(
+                          radius: 20,
+                          backgroundImage:
+                              AssetImage('assets/images/victor.png'),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       const Expanded(
@@ -669,6 +676,27 @@ class _WalletState extends State<Wallet> {
   Route _createRoute2() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => const Loans(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _createRoute3() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          UserProfilePage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
         const end = Offset.zero;

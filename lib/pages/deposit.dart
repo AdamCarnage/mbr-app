@@ -85,6 +85,7 @@ class _DepositState extends State<Deposit> {
                               ),
                             ),
                             selectedColor: Colors.blue.withOpacity(0.2),
+                            backgroundColor: Colors.white,
                             selected: selectedMethod == 'Credit Card',
                             onSelected: (bool selected) {
                               setState(() {
@@ -105,6 +106,7 @@ class _DepositState extends State<Deposit> {
                             ),
                             selected: selectedMethod == 'Paypal',
                             selectedColor: Colors.blue.withOpacity(0.2),
+                            backgroundColor: Colors.white,
                             onSelected: (bool selected) {
                               setState(() {
                                 selectedMethod = 'Paypal';
@@ -123,6 +125,7 @@ class _DepositState extends State<Deposit> {
                               ),
                             ),
                             selectedColor: Colors.blue.withOpacity(0.2),
+                            backgroundColor: Colors.white,
                             selected: selectedMethod == 'Cash',
                             onSelected: (bool selected) {
                               setState(() {
