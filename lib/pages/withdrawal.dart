@@ -14,262 +14,265 @@ class _WithdrawalState extends State<Withdrawal> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Withdraw',
-          style: TextStyle(
-            fontSize: 18,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
+    return Container(
+        color: CustomColor.trustColor,
+        child: SafeArea(
+            child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: const Text(
+              'Withdraw',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.white,
           ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Withdraw Methods',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              const Text(
-                'Payment Details',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-              const SizedBox(height: 12.0),
-
-              // Horizontal options for payment methods
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ChoiceChip(
-                    label: Text(
-                      'Bank',
-                      style: TextStyle(
-                        color: selectedMethod == 'Bank'
-                            ? CustomColor.trustColor
-                            : Colors.black,
-                        fontFamily: 'Poppins',
-                      ),
+                  const Text(
+                    'Withdraw Methods',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
                     ),
-                    selectedColor: Colors.blue.withOpacity(0.2),
-                    selected: selectedMethod == 'Bank',
-                    onSelected: (bool selected) {
-                      setState(() {
-                        selectedMethod = 'Bank';
-                      });
-                    },
                   ),
-                  const SizedBox(width: 10),
-                  ChoiceChip(
-                    label: Text(
-                      'Mobile Money',
-                      style: TextStyle(
-                        color: selectedMethod == 'Mobile Money'
-                            ? CustomColor.trustColor
-                            : Colors.black,
-                        fontFamily: 'Poppins',
-                      ),
+                  const SizedBox(height: 8.0),
+                  const Text(
+                    'Payment Details',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Poppins',
                     ),
-                    selected: selectedMethod == 'Mobile Money',
-                    selectedColor: Colors.blue.withOpacity(0.2),
-                    onSelected: (bool selected) {
-                      setState(() {
-                        selectedMethod = 'Mobile Money';
-                      });
-                    },
                   ),
-                  const SizedBox(width: 10),
-                  ChoiceChip(
-                    label: Text(
-                      'Azampay',
-                      style: TextStyle(
-                        color: selectedMethod == 'Azampay'
-                            ? CustomColor.trustColor
-                            : Colors.black,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                    selectedColor: Colors.blue.withOpacity(0.2),
-                    selected: selectedMethod == 'Azampay',
-                    onSelected: (bool selected) {
-                      setState(() {
-                        selectedMethod = 'Azampay';
-                      });
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20.0),
+                  const SizedBox(height: 12.0),
 
-              // Bank card UI
-              Visibility(
-                visible: selectedMethod == 'Bank',
-                // child: _buildBankCard(),
-                child: Column(
-                  children: [
-                    _buildBankCard(),
-                    _buildAddAnotherMethod(),
-                  ],
-                ),
-              ),
-
-              // Mobile Money UI
-              Visibility(
-                visible: selectedMethod == 'Mobile Money',
-                // child: _buildMobileMoney(),
-                child: Column(
-                  children: [
-                    _buildMobileMoney(),
-                    _buildAddAnotherMethod(),
-                  ],
-                ),
-              ),
-
-              // Azampay UI
-              Visibility(
-                visible: selectedMethod == 'Azampay',
-                // child: _buildAzampay(),
-                child: Column(
-                  children: [
-                    _buildAzampesa(),
-                    _buildAddAnotherMethod(),
-                  ],
-                ),
-              ),
-
-              // Set Amount section
-              const SizedBox(height: 20.0),
-              const Text(
-                'Set Amount',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-              const Text(
-                'How much would you like to withdraw?',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.attach_money,
-                          color: CustomColor.trustColor,
+                  // Horizontal options for payment methods
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ChoiceChip(
+                        label: Text(
+                          'Bank',
+                          style: TextStyle(
+                            color: selectedMethod == 'Bank'
+                                ? CustomColor.trustColor
+                                : Colors.black,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
-                        SizedBox(width: 8),
+                        selectedColor: Colors.blue.withOpacity(0.2),
+                        selected: selectedMethod == 'Bank',
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedMethod = 'Bank';
+                          });
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      ChoiceChip(
+                        label: Text(
+                          'Mobile Money',
+                          style: TextStyle(
+                            color: selectedMethod == 'Mobile Money'
+                                ? CustomColor.trustColor
+                                : Colors.black,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        selected: selectedMethod == 'Mobile Money',
+                        selectedColor: Colors.blue.withOpacity(0.2),
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedMethod = 'Mobile Money';
+                          });
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      ChoiceChip(
+                        label: Text(
+                          'Azampay',
+                          style: TextStyle(
+                            color: selectedMethod == 'Azampay'
+                                ? CustomColor.trustColor
+                                : Colors.black,
+                            fontFamily: 'Poppins',
+                          ),
+                        ),
+                        selectedColor: Colors.blue.withOpacity(0.2),
+                        selected: selectedMethod == 'Azampay',
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedMethod = 'Azampay';
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20.0),
+
+                  // Bank card UI
+                  Visibility(
+                    visible: selectedMethod == 'Bank',
+                    // child: _buildBankCard(),
+                    child: Column(
+                      children: [
+                        _buildBankCard(),
+                        _buildAddAnotherMethod(),
+                      ],
+                    ),
+                  ),
+
+                  // Mobile Money UI
+                  Visibility(
+                    visible: selectedMethod == 'Mobile Money',
+                    // child: _buildMobileMoney(),
+                    child: Column(
+                      children: [
+                        _buildMobileMoney(),
+                        _buildAddAnotherMethod(),
+                      ],
+                    ),
+                  ),
+
+                  // Azampay UI
+                  Visibility(
+                    visible: selectedMethod == 'Azampay',
+                    // child: _buildAzampay(),
+                    child: Column(
+                      children: [
+                        _buildAzampesa(),
+                        _buildAddAnotherMethod(),
+                      ],
+                    ),
+                  ),
+
+                  // Set Amount section
+                  const SizedBox(height: 20.0),
+                  const Text(
+                    'Set Amount',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  const Text(
+                    'How much would you like to withdraw?',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.attach_money,
+                              color: CustomColor.trustColor,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Total amount',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ],
+                        ),
                         Text(
-                          'Total amount',
+                          '\$200',
                           style: TextStyle(
                             fontSize: 16,
+                            fontWeight: FontWeight.bold,
                             fontFamily: 'Poppins',
                           ),
                         ),
                       ],
                     ),
-                    Text(
-                      '\$200',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20.0),
+                  ),
+                  const SizedBox(height: 20.0),
 
-              // Submit and Cancel buttons
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: CustomColor.trustColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                  // Submit and Cancel buttons
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: CustomColor.trustColor,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            'Send',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                      child: const Text(
-                        'Send',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: const BorderSide(
+                                  color: CustomColor.trustColor, width: 1),
+                            ),
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                          ),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: CustomColor.trustColor,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(
-                              color: CustomColor.trustColor, width: 1),
-                        ),
-                        elevation: 0,
-                        backgroundColor: Colors.transparent,
-                      ),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: CustomColor.trustColor,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        )));
   }
 
   // Bank card widget
